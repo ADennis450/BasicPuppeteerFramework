@@ -1,2 +1,4 @@
 # BasicPuppeteerFramework
-A basic puppeteer framework
+
+## SetUp
+npm install
