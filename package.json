@@ -1,0 +1,22 @@
+{
+  "name": "basicpuppeteerframework",
+  "version": "1.0.0",
+  "description": "A basic puppeteer framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ADennis450/BasicPuppeteerFramework.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ADennis450/BasicPuppeteerFramework/issues"
+  },
+  "homepage": "https://github.com/ADennis450/BasicPuppeteerFramework#readme",
+  "dependencies": {
+    "puppeteer": "^10.4.0"
+  }
+}
