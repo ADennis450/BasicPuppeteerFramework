@@ -19,7 +19,7 @@ export class NavHelper {
         }
         catch (Exception)
         {
-            console.log(Exception);
+            throw (Exception.toString());
         }
     }
 

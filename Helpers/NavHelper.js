@@ -26,7 +26,7 @@ class NavHelper {
                 this.page = yield this.browser.newPage();
             }
             catch (Exception) {
-                console.log(Exception);
+                throw (Exception.toString());
             }
         });
     }
