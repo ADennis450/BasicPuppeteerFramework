@@ -51,29 +51,31 @@ class NavHelper {
             yield this.page.$x(elementName).then((ele) => __awaiter(this, void 0, void 0, function* () { return yield ele[0].type(elementText); }));
         });
     }
-    extractTableData() {
+    extractTableData(headerElements, cellElements) {
         return __awaiter(this, void 0, void 0, function* () {
             const tableHash = new Map();
             let headersList = [];
             //Get table headers
-            const headers = yield this.page.$x("//table[@id='customers']/descendant::th");
+            const headers = yield this.page.$x(headerElements);
             for (let i = 0; i < headers.length; i++) {
                 headersList.push(yield this.page.evaluate(el => el.innerText, headers[i]));
             }
             //Get table rows and map to table headers
             for (let i = 0; i < headersList.length; i++) {
                 let cellValuesLists = [];
-                const cellValues = yield this.page.$x(`//table[@id='customers']/descendant::tr/td[${i + 1}]`);
-                for (let i = 0; i < cellValues.length; i++) {
-                    cellValuesLists.push(yield this.page.evaluate(el => el.innerText, cellValues[i]));
+                const cellValues = yield this.page.$x(cellElements + `[${i + 1}]`);
+                for (let j = 0; j < cellValues.length; j++) {
+                    cellValuesLists.push(yield this.page.evaluate(el => el.innerText, cellValues[j]));
                 }
                 tableHash.set(headersList[i], cellValuesLists);
             }
             return tableHash;
         });
     }
+    //`//table[@id='customers']/descendant::tr/td[${i + 1}]`
     closeBrowser() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('closing browser');
             yield this.browser.close();
         });
     }

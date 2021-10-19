@@ -44,24 +44,25 @@ export class NavHelper {
         await this.page.$x(elementName).then(async (ele) => await ele[0].type(elementText));
     }
 
-    public async extractTableData(): Promise<Map<string, string[]>>
+    public async extractTableData(headerElements:string, cellElements:string): Promise<Map<string, string[]>>
     {
         const tableHash: Map<string, string[]> = new Map();
         let headersList:string[] = [];
         //Get table headers
-        const headers = await this.page.$x("//table[@id='customers']/descendant::th");
+        const headers = await this.page.$x(headerElements);
         for (let i = 0; i < headers.length; i++)
         {
            headersList.push(await this.page.evaluate(el => el.innerText, headers[i]));
         }
-        //Get table rows and map to table headers
+        //Get table cell values
+        //Map cell values to table headers
         for(let i = 0; i < headersList.length; i++)
         {
             let cellValuesLists:string[] = [];
-            const cellValues = await this.page.$x(`//table[@id='customers']/descendant::tr/td[${i + 1}]`);
-            for(let i = 0; i < cellValues.length; i++)
+            const cellValues = await this.page.$x(cellElements + `[${i+1}]`);
+            for(let j = 0; j < cellValues.length; j++)
             {
-                cellValuesLists.push(await this.page.evaluate(el => el.innerText, cellValues[i])as string);
+                cellValuesLists.push(await this.page.evaluate(el => el.innerText, cellValues[j]));
             }
             tableHash.set(headersList[i], cellValuesLists);
         }
@@ -70,6 +71,7 @@ export class NavHelper {
 
     public async closeBrowser()
     {
+        console.log('closing browser');
          await this.browser.close();
     }
 
