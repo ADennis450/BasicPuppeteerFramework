@@ -49,7 +49,7 @@ export class NavHelper {
         const tableHash: Map<string, string[]> = new Map();
         let headersList:string[] = [];
         //Get table headers
-        const headers = await this.page.$x("//table[@id='customers']/descendant::th");
+        const headers = await this.page.$x(headerElements);
         for (let i = 0; i < headers.length; i++)
         {
            headersList.push(await this.page.evaluate(el => el.innerText, headers[i]));
