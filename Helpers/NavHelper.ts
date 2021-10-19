@@ -44,9 +44,33 @@ export class NavHelper {
         await this.page.$x(elementName).then(async (ele) => await ele[0].type(elementText));
     }
 
+    public async extractTableData(): Promise<Map<string, string[]>>
+    {
+        const tableHash: Map<string, string[]> = new Map();
+        let headersList:string[] = [];
+        //Get table headers
+        const headers = await this.page.$x("//table[@id='customers']/descendant::th");
+        for (let i = 0; i < headers.length; i++)
+        {
+           headersList.push(await this.page.evaluate(el => el.innerText, headers[i]));
+        }
+        //Get table rows and map to table headers
+        for(let i = 0; i < headersList.length; i++)
+        {
+            let cellValuesLists:string[] = [];
+            const cellValues = await this.page.$x(`//table[@id='customers']/descendant::tr/td[${i + 1}]`);
+            for(let i = 0; i < cellValues.length; i++)
+            {
+                cellValuesLists.push(await this.page.evaluate(el => el.innerText, cellValues[i])as string);
+            }
+            tableHash.set(headersList[i], cellValuesLists);
+        }
+        return tableHash;
+    } 
+
     public async closeBrowser()
     {
-        return await this.browser.close();
+         await this.browser.close();
     }
 
 

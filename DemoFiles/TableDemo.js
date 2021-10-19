@@ -9,17 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const FileHelper_1 = require("../Helpers/FileHelper");
 const NavHelper_1 = require("../Helpers/NavHelper");
 let navHelper = new NavHelper_1.NavHelper();
+let fileHelper = new FileHelper_1.FileHelper();
 console.log('beginning test');
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield navHelper.createBrowser();
-    yield navHelper.goTo('https://www.saucedemo.com');
-    yield navHelper.enterText("//input[@id='user-name']", "standard_user");
-    yield navHelper.enterText("//input[@id='password']", "secret_sauce");
-    yield navHelper.clickOn("//input[@id='login-button']");
-    yield navHelper.waitUtilVisible("//div[@class='app_logo']");
-    yield navHelper.clickOn("//div[text()='Sauce Labs Backpack']/../../..//button");
-    yield navHelper.closeBrowser();
+    yield navHelper.goTo('https://www.w3schools.com/html/html_tables.asp');
+    const tableData = JSON.stringify(Object.fromEntries(yield navHelper.extractTableData()));
+    navHelper.closeBrowser();
+    fileHelper.createFile('OutputFiles/tableData.json', tableData);
 }))();
-//# sourceMappingURL=SauceDemo.js.map
+//# sourceMappingURL=TableDemo.js.map

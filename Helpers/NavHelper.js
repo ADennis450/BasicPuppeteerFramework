@@ -51,10 +51,32 @@ class NavHelper {
             yield this.page.$x(elementName).then((ele) => __awaiter(this, void 0, void 0, function* () { return yield ele[0].type(elementText); }));
         });
     }
+    extractTableData() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tableHash = new Map();
+            let headersList = [];
+            //Get table headers
+            const headers = yield this.page.$x("//table[@id='customers']/descendant::th");
+            for (let i = 0; i < headers.length; i++) {
+                headersList.push(yield this.page.evaluate(el => el.innerText, headers[i]));
+            }
+            //Get table rows and map to table headers
+            for (let i = 0; i < headersList.length; i++) {
+                let cellValuesLists = [];
+                const cellValues = yield this.page.$x(`//table[@id='customers']/descendant::tr/td[${i + 1}]`);
+                for (let i = 0; i < cellValues.length; i++) {
+                    cellValuesLists.push(yield this.page.evaluate(el => el.innerText, cellValues[i]));
+                }
+                tableHash.set(headersList[i], cellValuesLists);
+            }
+            return tableHash;
+        });
+    }
     closeBrowser() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.browser.close();
+            yield this.browser.close();
         });
     }
 }
 exports.NavHelper = NavHelper;
+//# sourceMappingURL=NavHelper.js.map
