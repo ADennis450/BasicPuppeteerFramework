@@ -60,7 +60,8 @@ class NavHelper {
             for (let i = 0; i < headers.length; i++) {
                 headersList.push(yield this.page.evaluate(el => el.innerText, headers[i]));
             }
-            //Get table rows and map to table headers
+            //Get table cell values
+            //Map cell values to table headers
             for (let i = 0; i < headersList.length; i++) {
                 let cellValuesLists = [];
                 const cellValues = yield this.page.$x(cellElements + `[${i + 1}]`);
@@ -72,7 +73,6 @@ class NavHelper {
             return tableHash;
         });
     }
-    //`//table[@id='customers']/descendant::tr/td[${i + 1}]`
     closeBrowser() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('closing browser');
