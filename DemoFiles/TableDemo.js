@@ -17,8 +17,7 @@ console.log('beginning test');
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield navHelper.createBrowser();
     yield navHelper.goTo('https://www.w3schools.com/html/html_tables.asp');
-    const tableData = JSON.stringify(Object.fromEntries(yield navHelper.extractTableData()));
+    const tableData = JSON.stringify(Object.fromEntries(yield navHelper.extractTableData("//table[@id='customers']/descendant::th", "//table[@id='customers']/descendant::tr/td")));
     navHelper.closeBrowser();
     fileHelper.createFile('OutputFiles/tableData.json', tableData);
 }))();
-//# sourceMappingURL=TableDemo.js.map
