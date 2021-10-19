@@ -16,7 +16,7 @@ let fileHelper = new FileHelper_1.FileHelper();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield navHelper.createBrowser();
     yield navHelper.goTo('https://www.w3schools.com/html/html_tables.asp');
-    yield fileHelper.getTableAndWritetoJson("//table[@id='customers']/descendant::th", "//table[@id='customers']/descendant::tr/td");
+    yield fileHelper.getTableAndWritetoJson("//table[@id='customers']/descendant::th", "//table[@id='customers']/descendant::tr/td", navHelper);
     navHelper.closeBrowser();
 }))();
 //# sourceMappingURL=TableDemo.js.map

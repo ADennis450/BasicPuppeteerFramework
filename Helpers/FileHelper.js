@@ -30,16 +30,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileHelper = void 0;
 const fs = __importStar(require("fs"));
-const NavHelper_1 = require("../Helpers/NavHelper");
 class FileHelper {
     createFile(filelocation, text) {
         fs.writeFileSync(filelocation, text);
     }
-    getTableAndWritetoJson(headerElements, cellElements) {
+    getTableAndWritetoJson(headerElements, cellElements, navHelper) {
         return __awaiter(this, void 0, void 0, function* () {
-            let navHelper = new NavHelper_1.NavHelper();
-            const tableData = JSON.stringify(Object.fromEntries(yield navHelper.extractTableData("//table[@id='customers']/descendant::th", "//table[@id='customers']/descendant::tr/td")));
-            this.createFile("OutputFiles", tableData);
+            const tableData = JSON.stringify(Object.fromEntries(yield navHelper.extractTableData(headerElements, cellElements)));
+            this.createFile("OutputFiles/tableData.json", tableData);
         });
     }
 }

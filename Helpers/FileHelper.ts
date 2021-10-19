@@ -9,14 +9,13 @@ export class FileHelper
         fs.writeFileSync(filelocation, text);
     }
 
-    public async getTableAndWritetoJson(headerElements:string, cellElements:string)
+    public async getTableAndWritetoJson(headerElements:string, cellElements:string, navHelper:NavHelper)
     {
-        let navHelper = new NavHelper();
         const tableData:string = JSON.stringify(
-            Object.fromEntries(await navHelper.extractTableData("//table[@id='customers']/descendant::th","//table[@id='customers']/descendant::tr/td" )
+            Object.fromEntries(await navHelper.extractTableData(headerElements,cellElements)
             )
         );
-        this.createFile("OutputFiles", tableData);
+        this.createFile("OutputFiles/tableData.json", tableData);
     }
 }
 

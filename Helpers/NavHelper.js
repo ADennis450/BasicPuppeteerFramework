@@ -56,7 +56,7 @@ class NavHelper {
             const tableHash = new Map();
             let headersList = [];
             //Get table headers
-            const headers = yield this.page.$x(headerElements);
+            const headers = yield this.page.$x("//table[@id='customers']/descendant::th");
             for (let i = 0; i < headers.length; i++) {
                 headersList.push(yield this.page.evaluate(el => el.innerText, headers[i]));
             }
