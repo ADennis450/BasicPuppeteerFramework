@@ -1,16 +1,10 @@
-import puppeteer from  "puppeteer";
+import puppeteer, { ElementHandle } from  "puppeteer";
 
 export class NavHelper {
-    private browser: puppeteer.Browser;
-    private page: puppeteer.Page;
+    private static page: puppeteer.Page;
+    private static browser: puppeteer.Browser;
 
-    constructor()
-    {
-        this.browser = null;
-        this.page = null;
-    }
-
-    public async createBrowser()
+    public static async createBrowser()
     {
         try
         {
@@ -23,87 +17,73 @@ export class NavHelper {
         }
     }
 
-    public async goTo(url: string)
+    public static getPage()
     {
-       console.log('navigating to ' + url);
-       await this.page.goto(url);
+       return this.page;
     }
 
-    public async clickOn(element: string)
+    public static async goToUrl(url: string, clearLocalStorage = false)
     {
-        await this.page.$x(element).then(async (ele) => await ele[0].click());
+       await this.page.goto(url, {waitUntil: 'networkidle0'});
+       if (clearLocalStorage)
+       {
+           await this.page.evaluate(() => localStorage.claer());
+       }
     }
 
-    public async waitUtilVisible(element: string)
+    public static async clickOnElement(selector: string)
     {
-        await this.page.waitForXPath(element);
+        const element = await this.waitForElement(selector)
+        await element.click();
     }
 
-    public async enterText(elementName:string, elementText:string)
+    public static async waitForElement(selector: string, options?: any): Promise<ElementHandle | null>
     {
-        await this.page.$x(elementName).then(async (ele) => await ele[0].type(elementText));
+        if(options == null)
+        {
+          return await this.page.waitForXPath(selector);
+        }
+        else
+        {
+          return await this.page.waitForXPath(selector, options);
+        }
     }
 
-    public async switchTabs(index: number)
+    public static async enterText(selector:string, elementText:string)
     {
-        await this.page.waitFor(5000);
+        const element = await this.waitForElement(selector);
+        await element.type(elementText);
+    }
+
+    public static async getElementText(selector: string )
+    {
+        const element = await this.waitForElement(selector);
+        await this.getPage().evaluate(el => el.innerText)
+    }
+
+    public static async switchTabs(index: number)
+    {
         const tabs = await this.browser.pages()
         tabs[index].bringToFront();
-        this.page.waitFor(5000);
     }
 
-    public async closepage(index: number)
+    public static async closepage(index: number)
     {
         const tabs = await this.browser.pages();
         await tabs[index].close();
     }
 
-    public async changeAttributeValue(selector:string)
+    public static async changeAttributeValue(selector:string, newValue: string)
     {
-        const newDate = '20211212'
-        // await this.page.evaluate((selector, newDate) => {
+        await this.page.evaluate((selector, newValue) => {
 
-        //     console.log(selector + newDate);
+            document.querySelector(selector).setAttribute('value', newValue)
         
-        // },selector,newDate);
-
-        await this.page.evaluate((selector, newDate) => {
-
-            document.querySelector(selector).setAttribute('value', newDate)
-        
-        },selector,newDate);
-       // await this.page.evaluate((selector, newDate) => console.log(selector + " " + newDate ),(selector, newDate))
-       // await this.page.$eval((selector,  (e, newDate) => e.setAttribute("value", newDate));
+        },selector, newValue);
     }
-    
-    public async extractTableData(headerElements:string, cellElements:string): Promise<Map<string, string[]>>
+     
+    public static async closeBrowser()
     {
-        const tableHash: Map<string, string[]> = new Map();
-        let headersList:string[] = [];
-        //Get table headers
-        const headers = await this.page.$x(headerElements);
-        for (let i = 0; i < headers.length; i++)
-        {
-           headersList.push(await this.page.evaluate(el => el.innerText, headers[i]));
-        }
-        //Get table cell values
-        //Map cell values to table headers
-        for(let i = 0; i < headersList.length; i++)
-        {
-            let cellValuesLists:string[] = [];
-            const cellValues = await this.page.$x(cellElements + `[${i+1}]`);
-            for(let j = 0; j < cellValues.length; j++)
-            {
-                cellValuesLists.push(await this.page.evaluate(el => el.innerText, cellValues[j]));
-            }
-            tableHash.set(headersList[i], cellValuesLists);
-        }
-        return tableHash;
-    } 
-
-    public async closeBrowser()
-    {
-        console.log('closing browser');
-         await this.browser.close();
+        await this.browser.close();
     }
 }

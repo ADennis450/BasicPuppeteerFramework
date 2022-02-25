@@ -1,14 +1,13 @@
 import { NavHelper } from "../helpers/navHelper";
 
-let navHelper = new NavHelper();
 console.log('beginning test');
 (async() => {
-    await navHelper.createBrowser();
-    await navHelper.goTo('https://www.saucedemo.com');
-    await navHelper.enterText("//input[@id='user-name']", "standard_user");
-    await navHelper.enterText("//input[@id='password']", "secret_sauce");
-    await navHelper.clickOn("//input[@id='login-button']");
-    await navHelper.waitUtilVisible("//div[@class='app_logo']")
-    await navHelper.clickOn("//div[text()='Sauce Labs Backpack']/../../..//button")
-    await navHelper.closeBrowser();
+    await NavHelper.createBrowser();
+    await NavHelper.goToUrl('https://www.saucedemo.com');
+    await NavHelper.enterText("//input[@id='user-name']", "standard_user");
+    await NavHelper.enterText("//input[@id='password']", "secret_sauce");
+    await NavHelper.clickOnElement("//input[@id='login-button']");
+    await NavHelper.waitForElement("//div[@class='app_logo']")
+    await NavHelper.clickOnElement("//div[text()='Sauce Labs Backpack']/../../..//button")
+    await NavHelper.closeBrowser();
 })();
