@@ -3,7 +3,6 @@ import * as path from 'path';
 import { NavHelper } from "./navHelper";
 export class FileHelper
 {
-
     private createFile(filelocation:string,text:string)
     {
         fs.writeFileSync(filelocation, text);

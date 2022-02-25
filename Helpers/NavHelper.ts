@@ -10,8 +10,6 @@ export class NavHelper {
         this.page = null;
     }
 
-
-
     public async createBrowser()
     {
         try
@@ -108,8 +106,4 @@ export class NavHelper {
         console.log('closing browser');
          await this.browser.close();
     }
-
-
-
-
 }
