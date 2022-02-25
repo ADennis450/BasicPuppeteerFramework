@@ -1,5 +1,5 @@
-import { FileHelper } from "../Helpers/FileHelper";
-import { NavHelper } from "../Helpers/NavHelper";
+import { FileHelper } from "../helpers/fileHelper";
+import { NavHelper } from "../helpers/navHelper";
 
 let navHelper = new NavHelper();
 let fileHelper = new FileHelper();

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { NavHelper } from "../Helpers/NavHelper";
+import { NavHelper } from "./navHelper";
 export class FileHelper
 {
 

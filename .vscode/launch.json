@@ -11,10 +11,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/Dist/DemoFiles/TableDemo.js",
+            "program": "${workspaceFolder}/dist/demo_files/sauceDemo.js",
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceFolder}/Dist/*.js",
+                "${workspaceFolder}/dist/*.js",
             ],
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [

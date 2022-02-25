@@ -1,4 +1,4 @@
-import { NavHelper } from "../Helpers/NavHelper";
+import { NavHelper } from "../helpers/navHelper";
 
 let navHelper = new NavHelper();
 console.log('beginning test');
