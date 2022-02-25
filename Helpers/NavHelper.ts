@@ -10,12 +10,14 @@ export class NavHelper {
         this.page = null;
     }
 
+
+
     public async createBrowser()
     {
         try
         {
             this.browser = await puppeteer.launch({headless: false});
-            this.page = await this.browser.newPage()
+            [this.page] = await this.browser.pages();
         }
         catch (Exception)
         {
@@ -44,6 +46,38 @@ export class NavHelper {
         await this.page.$x(elementName).then(async (ele) => await ele[0].type(elementText));
     }
 
+    public async switchTabs(index: number)
+    {
+        await this.page.waitFor(5000);
+        const tabs = await this.browser.pages()
+        tabs[index].bringToFront();
+        this.page.waitFor(5000);
+    }
+
+    public async closepage(index: number)
+    {
+        const tabs = await this.browser.pages();
+        await tabs[index].close();
+    }
+
+    public async changeAttributeValue(selector:string)
+    {
+        const newDate = '20211212'
+        // await this.page.evaluate((selector, newDate) => {
+
+        //     console.log(selector + newDate);
+        
+        // },selector,newDate);
+
+        await this.page.evaluate((selector, newDate) => {
+
+            document.querySelector(selector).setAttribute('value', newDate)
+        
+        },selector,newDate);
+       // await this.page.evaluate((selector, newDate) => console.log(selector + " " + newDate ),(selector, newDate))
+       // await this.page.$eval((selector,  (e, newDate) => e.setAttribute("value", newDate));
+    }
+    
     public async extractTableData(headerElements:string, cellElements:string): Promise<Map<string, string[]>>
     {
         const tableHash: Map<string, string[]> = new Map();
