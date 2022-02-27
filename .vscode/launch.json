@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/demo_files/sauceDemo.js",
+            "program": "${workspaceFolder}/dist/demo/sauceDemo/sauceDemo.js",
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceFolder}/dist/*.js",

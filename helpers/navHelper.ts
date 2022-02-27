@@ -4,12 +4,18 @@ export class NavHelper {
     private static page: puppeteer.Page;
     private static browser: puppeteer.Browser;
 
-    public static async createBrowser()
+    public static async createBrowser(navigationTimeout = 10000, defaultTimeout = 5000)
     {
         try
         {
-            this.browser = await puppeteer.launch({headless: false});
+            this.browser = await puppeteer.launch({ 
+                headless: false,
+                defaultViewport: null,
+                args: ['--start-maximized'] 
+            });
             [this.page] = await this.browser.pages();
+            this.page.setDefaultNavigationTimeout(navigationTimeout);
+            this.page.setDefaultTimeout(defaultTimeout);
         }
         catch (Exception)
         {
@@ -55,10 +61,18 @@ export class NavHelper {
         await element.type(elementText);
     }
 
-    public static async getElementText(selector: string )
-    {
-        const element = await this.waitForElement(selector);
-        await this.getPage().evaluate(el => el.innerText)
+    public static async getElementText(selector: string, index?: number): Promise<string>
+        {
+        if(index == null)
+        {
+            const element = await this.waitForElement(selector);
+            return await this.getPage().evaluate(el => el.innerText, element);
+        }
+        else
+        {
+            const elements = await NavHelper.getPage().$x(selector);
+            return await this.getPage().evaluate(el => el.innerText, elements[index]);   
+        }
     }
 
     public static async switchTabs(index: number)
