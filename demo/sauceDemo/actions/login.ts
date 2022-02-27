@@ -1,5 +1,5 @@
-import { Global } from "../../../common/global";
-import { NavHelper } from "../../../helpers/navHelper";
+import { Global } from "../../../common/global/global";
+import { NavHelper } from "../../../common/helpers/navHelper";
 import { LoginSelectors } from "../selectors/sauceDemo/loginSelectors";
 import { Urls } from "../selectors/sauceDemo/urls";
 

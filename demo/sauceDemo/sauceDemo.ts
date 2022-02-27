@@ -1,8 +1,8 @@
-import { NavHelper } from "../../helpers/navHelper";
+import { NavHelper } from "../../common/helpers/navHelper";
 import { login } from "./actions/login";
-import { Global } from "../../common/global";
+import { Global } from "../../common/global/global";
 import { scrapeProductInfo } from "./actions/scrapeProductInfo";
-import { FileHelper } from "../../helpers/fileHelper";
+import { FileHelper } from "../../common/helpers/fileHelper";
 
 (async() => {
   try

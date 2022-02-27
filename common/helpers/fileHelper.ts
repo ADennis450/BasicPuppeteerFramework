@@ -1,4 +1,4 @@
-import { SauceOutput } from "../common/interfaces/SauceOutput";
+import { SauceOutput } from "../interfaces/SauceOutput";
 
 export class FileHelper
 {
