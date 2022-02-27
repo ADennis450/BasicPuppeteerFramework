@@ -1,6 +1,6 @@
-import { Global } from "../../../common/global";
-import { DataHelper } from "../../../helpers/dataHelper";
-import { NavHelper } from "../../../helpers/navHelper";
+import { Global } from "../../../common/global/global";
+import { DataHelper } from "../../../common/helpers/dataHelper";
+import { NavHelper } from "../../../common/helpers/navHelper";
 import { SauceProductsBuilder } from "../builder/sauceProductBuilder";
 import { SauceProduct } from "../builder/sauceProductInterface";
 import { ProductSelectors } from "../selectors/sauceDemo/productSelectors";
