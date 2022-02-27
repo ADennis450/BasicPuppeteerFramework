@@ -9,7 +9,6 @@ export async function scrapeProductInfo(): Promise<SauceProduct[]>
 {
     if(!Global.globalErrors.length)
     {
-        
         const inventoryItems = await NavHelper.getPage().$x(ProductSelectors.inventoryItem);  
 
         const productList: SauceProduct[] = [];
@@ -17,19 +16,13 @@ export async function scrapeProductInfo(): Promise<SauceProduct[]>
         {
             for(let i = 0; i < inventoryItems.length; i++)
             { 
-            const name = await NavHelper.getElementText(ProductSelectors.productTitle, i);  
-            const description = await NavHelper.getElementText(ProductSelectors.productDescription, i)    
-            const price = DataHelper.convertCurrencyToNumber(
-                await NavHelper.getElementText(ProductSelectors.productPrice, i)
-            );
-            
-            const product: SauceProduct = new SauceProductsBuilder()
-                .name(name)
-                .description(description)
-                .price(price)
-                .build(); 
-            
-            productList.push(product);
+               const product: SauceProduct = new SauceProductsBuilder()
+                    .name(await NavHelper.getElementText(ProductSelectors.productTitle, i))  
+                    .description(await NavHelper.getElementText(ProductSelectors.productDescription, i))   
+                    .price(await NavHelper.getElementText(ProductSelectors.productPrice, i))
+                    .build();
+                
+                productList.push(product);
             }
         }
         catch(error)

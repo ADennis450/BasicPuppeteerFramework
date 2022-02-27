@@ -12,12 +12,13 @@ import { FileHelper } from "../../common/helpers/fileHelper";
     console.log('Launching Browser');
     await NavHelper.createBrowser();
     
-    console.log('Loggin into SauceDemos');
+    console.log('Logging into SauceDemos');
     await login();
 
     console.log('Scraping product info');
     const productData = await scrapeProductInfo();
 
+    console.log('Writing output to file');
     FileHelper.writeToFile(
       {
         productData: productData,

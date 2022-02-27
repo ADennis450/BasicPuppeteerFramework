@@ -1,3 +1,4 @@
+import { DataHelper } from "../../../common/helpers/dataHelper";
 import { SauceProduct as SauceProduct } from "./sauceProductInterface";
 
 export class SauceProductsBuilder
@@ -24,9 +25,9 @@ export class SauceProductsBuilder
         return this;
     }
 
-    price(price: number): SauceProductsBuilder
+    price(price: string): SauceProductsBuilder
     {
-        this.product.price = price 
+        this.product.price = DataHelper.convertCurrencyToNumber(price);
         return this;
     }
 
