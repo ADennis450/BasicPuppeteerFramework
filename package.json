@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ADennis450/BasicPuppeteerFramework#readme",
   "dependencies": {
     "puppeteer": "^10.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
   }
 }
