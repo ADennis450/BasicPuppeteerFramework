@@ -1,4 +1,4 @@
-import { SauceProduct } from "../../demo/sauceDemo/builder/sauceProductInterface";
+import { SauceProduct } from "./sauceProductInterface";
 
 export interface SauceOutput
 {

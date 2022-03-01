@@ -1,8 +1,8 @@
 import { Global } from "../../../common/global/global";
 import { DataHelper } from "../../../common/helpers/dataHelper";
 import { NavHelper } from "../../../common/helpers/navHelper";
-import { SauceProductsBuilder } from "../builder/sauceProductBuilder";
-import { SauceProduct } from "../builder/sauceProductInterface";
+import { SauceProductsBuilder } from "../../../common/builders/sauceProductBuilder";
+import { SauceProduct } from "../../../common/interfaces/sauceProductInterface";
 import { ProductSelectors } from "../selectors/sauceDemo/productSelectors";
 
 export async function scrapeProductInfo(): Promise<SauceProduct[]>
@@ -25,7 +25,6 @@ export async function scrapeProductInfo(): Promise<SauceProduct[]>
             
             const product: SauceProduct = new SauceProductsBuilder()
                 .name(name)
-                .description(description)
                 .price(price)
                 .build(); 
             
