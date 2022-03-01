@@ -5,8 +5,7 @@ import { scrapeProductInfo } from "./actions/scrapeProductInfo";
 import { FileHelper } from "../../common/helpers/fileHelper";
 
 (async() => {
-  try
-  {
+
     Global.globalErrors = [];
 
     console.log('Launching Browser');
@@ -18,21 +17,14 @@ import { FileHelper } from "../../common/helpers/fileHelper";
     console.log('Scraping product info');
     const productData = await scrapeProductInfo();
 
+    console.log('Writing output to file');
     FileHelper.writeToFile(
       {
         productData: productData,
         errors: Global.globalErrors
       }
     );
-  }
   
-  catch(error)
-  {
-    Global.globalErrors.push(error as Error);
-  }
-  finally
-  {
     console.log('Closing Browser')
-    await NavHelper.closeBrowser();
-  } 
+    await NavHelper.closeBrowser(); 
 })();
